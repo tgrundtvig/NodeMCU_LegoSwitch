@@ -9,8 +9,8 @@
 //#define GREY_SWITCH
 
 //Uncomment ONLY ONE of these:
-//#define DEVICE_TYPE "LEGO_Left_Switch" //Left switch
-#define DEVICE_TYPE "LEGO_Right_Switch" //Right switch
+#define DEVICE_TYPE "LEGO_Left_Switch" //Left switch
+//#define DEVICE_TYPE "LEGO_Right_Switch" //Right switch
 
 #define DEVICE_VERSION 1
 

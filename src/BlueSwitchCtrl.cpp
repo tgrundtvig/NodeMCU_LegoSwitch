@@ -111,8 +111,12 @@ void BlueSwitchCtrl::update(unsigned long curTime)
     }
 }
 
-void BlueSwitchCtrl::switchTo(uint8_t side)
+bool BlueSwitchCtrl::switchTo(uint8_t side)
 {
+    if(_state >= STATE_CALIBRATE_1)
+    {
+        return false;
+    }
     switch(side)
     {
         case LEFT:
@@ -125,7 +129,7 @@ void BlueSwitchCtrl::switchTo(uint8_t side)
                     _pListener->onStateChange(_state);
                 }
             }
-            return;
+            return true;
         case RIGHT:
             if(_state != STATE_RIGHT && _state != STATE_SWITCHING_RIGHT)
             {
@@ -136,6 +140,8 @@ void BlueSwitchCtrl::switchTo(uint8_t side)
                     _pListener->onStateChange(_state);
                 }
             }
-            return; 
+            return true; 
     }
+    Serial.println("ERROR: Unknow side");
+    return false;
 }

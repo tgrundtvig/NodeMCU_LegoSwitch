@@ -19,7 +19,7 @@ class SwitchCtrl
 public:
     virtual void setListener(SwitchListener* pListener) = 0;
     virtual void update(unsigned long curTime) = 0;
-    virtual void switchTo(uint8_t side) = 0;
+    virtual bool switchTo(uint8_t side) = 0;
     virtual uint8_t getState() = 0;
 };
 

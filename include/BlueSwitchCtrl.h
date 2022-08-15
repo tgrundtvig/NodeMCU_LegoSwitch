@@ -19,7 +19,7 @@ public:
                     uint8_t motorPin4 );
     void setListener(SwitchListener* pListener) {_pListener = pListener;}
     void update(unsigned long curTime);
-    void switchTo(uint8_t side);
+    bool switchTo(uint8_t side);
     uint8_t getState() {return _state;}
 private:
     void calibrate();

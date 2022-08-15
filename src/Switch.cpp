@@ -43,12 +43,24 @@ uint16_t Switch::onPacketReceived(uint16_t command, uint16_t arg1, uint16_t arg2
             return 0;
         case CMD_SWITCH_LEFT:
         Serial.println("Switch left received!");
-            _pSwitchCtrl->switchTo(LEFT);
-            return 0;
+            if(_pSwitchCtrl->switchTo(LEFT))
+            {
+                return 0;
+            }
+            else
+            {
+                return 101;
+            }
         case CMD_SWITCH_RIGHT:
             Serial.println("Switch right received!");
-            _pSwitchCtrl->switchTo(RIGHT);
-            return 0;
+            if(_pSwitchCtrl->switchTo(RIGHT))
+            {
+                return 0;
+            }
+            else
+            {
+                return 101;
+            }
         case CMD_GET_STATE:
             Serial.println("Get state received!");
             sendPacketToServer(CMD_ON_STATE_CHANGE, _pSwitchCtrl->getState(), 0, true, true);

@@ -45,7 +45,7 @@ void GreySwitchCtrl::update(unsigned long curTime)
     }
 }
 
-void GreySwitchCtrl::switchTo(uint8_t side)
+bool GreySwitchCtrl::switchTo(uint8_t side)
 {
     switch(side)
     {
@@ -60,7 +60,7 @@ void GreySwitchCtrl::switchTo(uint8_t side)
                     _pListener->onStateChange(_state);
                 }
             }
-            return;
+            return true;
         case RIGHT:
             if(_state != STATE_RIGHT && _state != STATE_SWITCHING_RIGHT)
             {
@@ -72,6 +72,8 @@ void GreySwitchCtrl::switchTo(uint8_t side)
                     _pListener->onStateChange(_state);
                 }
             }
-            return; 
+            return true; 
     }
+    Serial.println("ERROR: Unknow side");
+    return false;
 }
