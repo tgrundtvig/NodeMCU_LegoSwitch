@@ -14,6 +14,8 @@ Switch::Switch( SwitchCtrl* pSwitchCtrl,
                 _led(ledPin, ledOn)
 {
     _pSwitchCtrl = pSwitchCtrl;
+    _pSwitchCtrl->setListener(this);
+
 }
 
 void Switch::update(unsigned long curTime)
@@ -22,7 +24,7 @@ void Switch::update(unsigned long curTime)
     DeviceUDPClient::update(curTime);
     _pSwitchCtrl->update(curTime);
     _led.update(curTime);
-    if(curTime - _ledStarted > 5000)
+    if(curTime - _ledStarted > 10000)
     {
         _led.stop();
     }
@@ -35,17 +37,20 @@ uint16_t Switch::onPacketReceived(uint16_t command, uint16_t arg1, uint16_t arg2
     {
         case CMD_IDENTIFY:
             Serial.println("Identify received!");
-            _led.setBlinksPattern(3, 100, 200, 400);
+            _led.setBlinksPattern(arg1, 100, 200, 400);
             _led.start();
             _ledStarted = _curTime;
             return 0;
         case CMD_SWITCH_LEFT:
+        Serial.println("Switch left received!");
             _pSwitchCtrl->switchTo(LEFT);
             return 0;
         case CMD_SWITCH_RIGHT:
+            Serial.println("Switch right received!");
             _pSwitchCtrl->switchTo(RIGHT);
             return 0;
         case CMD_GET_STATE:
+            Serial.println("Get state received!");
             sendPacketToServer(CMD_ON_STATE_CHANGE, _pSwitchCtrl->getState(), 0, true, true);
             return 0;
         default:

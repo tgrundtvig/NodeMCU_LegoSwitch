@@ -54,7 +54,6 @@ void BlueSwitchCtrl::calibrate()
         case STATE_CALIBRATE_4:
             if(_stepper.distanceToGo() == 0)
             {
-                Serial.println("Ready!");
                 _state = STATE_LEFT;
                 if(_pListener != 0)
                 {
@@ -100,7 +99,6 @@ void BlueSwitchCtrl::update(unsigned long curTime)
             return;
         case STATE_LEFT:
         case STATE_RIGHT:
-            /*
             if(curTime - _lastStateSend > 5000)
             {
                 if(_pListener != 0)
@@ -108,7 +106,7 @@ void BlueSwitchCtrl::update(unsigned long curTime)
                     _pListener->onStateChange(_state);
                 }
                 _lastStateSend = curTime;
-            }*/
+            }
             return;
     }
 }
